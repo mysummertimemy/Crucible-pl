@@ -1,0 +1,76 @@
+/////////////////////////////////////////////////////////////////////
+// Play Cutscene
+/////////////////////////////////////////////////////////////////////
+IF
+    Global("PlayTextScreen","MOBHAA",0)
+THEN
+    RESPONSE #100
+        TextScreen("MOBHATX1")
+        SetGlobal("PlayTextScreen","MOBHAA",1)
+END
+
+/////////////////////////////////////////////////////////////////////
+// Warning Journal Entry
+/////////////////////////////////////////////////////////////////////
+IF
+    !ActuallyInCombat()
+    Global("Warning2","mobhaa",1)
+    Global("JournalWarning","MOBHAA",0)
+THEN
+    RESPONSE #100
+        AddJournalEntry(@20001,INFO)
+        SetGlobal("JournalWarning","MOBHAA",1)
+END
+
+/////////////////////////////////////////////////////////////////////
+// Open Door
+/////////////////////////////////////////////////////////////////////
+IF
+    Global("Enteredmobhaa","mobhaa",0)
+THEN
+    RESPONSE #100
+        SetGlobal("Enteredmobhaa","mobhaa",1)
+        AmbientActivate("amb_door01",FALSE)
+        AmbientActivate("amb_door02",FALSE)
+        AmbientActivate("amb_door03",FALSE)
+END
+
+IF
+    Global("DoorOpenmobhaa","mobhaa",0)
+    PartyHasItem("mobha53a")
+THEN
+    RESPONSE #100
+        OpenDoor("Door01")
+        SetGlobal("DoorOpenmobhaa","mobhaa",1)
+END
+
+IF
+    Global("DoorOpenmobhaa","mobhaa",1)
+    !PartyHasItem("mobha53a")
+THEN
+    RESPONSE #100
+        CloseDoor("Door01")
+        SetGlobal("DoorOpenmobhaa","mobhaa",0)
+END
+
+/////////////////////////////////////////////////////////////////////
+// Kirinhale's Quest
+/////////////////////////////////////////////////////////////////////
+IF
+    Global("MO_KirinQuest","GLOBAL",3)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("MO_KirinQuestTimer","mobhaa",12)
+        SetGlobal("MO_KirinQuest","GLOBAL",4)
+END
+
+IF
+    GlobalTimerExpired("MO_KirinQuestTimer","mobhaa")
+    Global("MO_KirinQuest","GLOBAL",4)
+THEN
+    RESPONSE #100
+        CreateVisualEffectObject("SPPLANAR","mobha22")  // Kirinhale
+        Wait(2)
+        Activate("mobha22")  // Kirinhale
+        SetGlobal("MO_KirinQuest","GLOBAL",5)
+END

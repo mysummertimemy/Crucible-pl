@@ -1,0 +1,70 @@
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//            Gaohan Ralahr
+/////////////////////////////////////////////////////////////////////
+//        Version 1
+// Gaohan Ralahr, Sorcerer Lich
+//
+// This character is dialog only and will flee if attacked.
+//
+/////////////////////////////////////////////////////////////////////
+
+IF
+  TookDamage()
+  Detect([PC])
+  Global("MO_TookDamage","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("MO_TookDamage","LOCALS",1)
+    StartDialogueNoSet([PC])
+END
+
+IF
+  TookDamage()
+  !See([PC])
+  Global("MO_TookDamage","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("MO_TookDamage","LOCALS",1)
+    ForceSpell(Myself,DRYAD_TELEPORT)
+END
+
+IF
+  Global("MO_FightPitProgression","MOBHA0",1)
+  Global("MO_LichConvo1","MOBHA0",0)
+  Detect([PC])
+THEN
+  RESPONSE #100
+    SetGlobal("MO_LichConvo1","MOBHA0",1)
+    StartDialogueNoSet([PC])
+END
+
+IF
+  Global("MO_FightPitProgression","MOBHA0",2)
+  Global("MO_LichConvo2","MOBHA0",0)
+  Detect([PC])
+THEN
+  RESPONSE #100
+    SetGlobal("MO_LichConvo2","MOBHA0",1)
+    StartDialogueNoSet([PC])
+END
+
+IF
+  Global("MO_FightPitProgression","MOBHA0",3)
+  Global("MO_LichConvo3","MOBHA0",0)
+  Detect([PC])
+THEN
+  RESPONSE #100
+    SetGlobal("MO_LichConvo3","MOBHA0",1)
+    StartDialogueNoSet([PC])
+END
+
+IF
+  Global("MO_FightPitProgression","MOBHA0",4)
+  Global("MO_LichConvo4","MOBHA0",0)
+  Detect([PC])
+THEN
+  RESPONSE #100
+    SetGlobal("MO_LichConvo4","MOBHA0",1)
+    StartDialogueNoSet([PC])
+END

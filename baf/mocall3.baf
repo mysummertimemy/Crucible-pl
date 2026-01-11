@@ -1,0 +1,52 @@
+IF
+  Allegiance(Myself,NEUTRAL)
+  OR(6)
+    AttackedBy([ANYTHING],DEFAULT)
+    SpellCast([GOODCUTOFF],0)    // triggers on any spell
+    SpellCastPriest([GOODCUTOFF],0)  // triggers on any spell
+    SpellCastInnate([GOODCUTOFF],0)  // triggers on any ability
+    Detect([GOODCUTOFF.0.0.0.0.SUMMONED])
+    TookDamage()
+  !GlobalTimerNotExpired("MO_Shout","LOCALS")
+THEN
+  RESPONSE #100
+    Shout(66)
+    SetGlobalTimer("MO_Shout","LOCALS",6)
+    Enemy()
+    SmallWait(5)
+END
+
+IF
+  OR(2)
+        HitBy([GOODCUTOFF],CRUSHING)
+        See(NearestEnemyOf(Myself))
+    Allegiance(Myself,ENEMY)
+    !GlobalTimerNotExpired("MO_Shout","LOCALS")
+THEN
+  RESPONSE #100
+    Shout(66)
+    SetGlobalTimer("MO_Shout","LOCALS",6)
+    Continue()
+END
+
+IF
+    !GlobalTimerNotExpired("MO_Responding","LOCALS")
+    Allegiance(Myself,ENEMY)
+    !Detect(NearestEnemyOf(Myself))
+    Heard([ANYONE],66)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("MO_Responding","LOCALS",18)
+        MoveToObject(LastHeardBy(Myself))
+END
+
+IF
+    GlobalTimerNotExpired("shouted","LOCALS")
+    !Detect(NearestEnemyOf(Myself))
+    Allegiance(Myself,ENEMY)
+    !Class(Myself,INNOCENT)
+THEN
+    RESPONSE #100
+        SetGlobalTimer("MO_IsMovingTimer","LOCALS",6)
+        MoveToObject(Player1)
+END

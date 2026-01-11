@@ -1,0 +1,9 @@
+IF
+  IsOverMe([ANYONE])
+  Global("Warning1","mobhaa",0)
+THEN
+  RESPONSE #100
+    SetGlobal("Warning1","mobhaa",1)
+    DisplayString(Myself,@5016)
+    AddJournalEntry(@20000,INFO)
+END
