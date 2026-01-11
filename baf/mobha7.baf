@@ -1,0 +1,43 @@
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//            Demon Tower, Level 3 (MOBHA7.ARE)
+/////////////////////////////////////////////////////////////////////
+//        Version 1
+// Belchaad the Juggernaut is the ruler of the tower and awaits
+// the player at the top.
+//
+/////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////
+// Create Melalas and Toz'gadath (Hardest Difficulties)
+/////////////////////////////////////////////////////////////////////
+IF
+	Global("MO_Spawn01","MOBHA7",0)
+	DifficultyGT(HARD)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_Spawn01","MOBHA7",1)
+		CreateCreature("mobha26",[866.531],S)  // Melalas
+		CreateCreature("mobha27",[974.742],SW)  // Toz'gadath
+END
+
+/////////////////////////////////////////////////////////////////////
+// Block Exit
+/////////////////////////////////////////////////////////////////////
+IF
+    Global("Enteredmobha7","GLOBAL",0)
+THEN
+    RESPONSE #100
+        SetGlobal("Enteredmobha7","GLOBAL",1)
+        TriggerActivation("TrMOBHA6",FALSE)
+END
+
+IF
+  Global("MO_Belchaad_Defeated","GLOBAL",1)
+  Global("DoorOpenmobha7","mobha7",0)
+THEN 
+    RESPONSE #100
+      TriggerActivation("TrMOBHA6",TRUE)
+      SetGlobal("DoorOpenmobha7","mobha7",1)
+END
+

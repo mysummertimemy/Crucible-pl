@@ -1,0 +1,40 @@
+/*
+IF
+	IsOverMe([GOODCUTOFF])
+	Global("MO_Spawn03","MOBHA1",0)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_Spawn03","MOBHA1",1)
+		//CreateCreature("mobha06",[2824.520],S)  // Skirmisher
+		//CreateCreature("mobha06",[2896.526],S)  // Skirmisher
+		//CreateCreature("mobha06",[2857.417],S)  // Skirmisher
+		//CreateCreature("mobha05",[2770.288],S)  // Scout
+		//CreateCreature("mobha05",[2850.251],S)  // Scout
+		//CreateCreature("mobha05",[2966.223],S)  // Scout
+END
+*/
+
+/*
+IF
+	IsOverMe([GOODCUTOFF])
+	Global("MO_Spawn03","MOBHA1",0)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_Spawn03","MOBHA1",1)
+		CreateCreatureObjectDoor("mobha06",[2824.520],0,0,0)  // Skirmisher
+		CreateCreatureObjectDoor("mobha06",[2896.526],0,0,0)  // Skirmisher
+		CreateCreatureObjectDoor("mobha06",[2857.417],0,0,0)  // Skirmisher
+		CreateCreatureObjectDoor("mobha05",[2770.288],0,0,0)  // Scout
+		CreateCreatureObjectDoor("mobha05",[2850.251],0,0,0)  // Scout
+		CreateCreatureObjectDoor("mobha05",[2966.223],0,0,0)  // Scout
+END
+*/
+
+IF
+	Entered([GOODCUTOFF])
+THEN
+	RESPONSE #100
+		DisplayString(LastTrigger,14381)  // Trap Sprung
+		PlaySound("SKELW03")
+		ForceSpell(LastTrigger,WIZARD_GREATER_MALISON)  // SPWI412.SPL (Greater Malison)
+END

@@ -1,0 +1,1829 @@
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//            Lilitu
+/////////////////////////////////////////////////////////////////////
+//        Version 1
+// Lilitu, 18th level Demon
+//
+// 
+/////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////
+// Prep
+/////////////////////////////////////////////////////////////////////
+IF
+  See([GOODCUTOFF])
+  Global("Prep","LOCALS",0)
+  DifficultyGT(HARD)
+THEN
+  RESPONSE #100
+    ReallyForceSpell(Myself,WIZARD_MIRROR_IMAGE)  // SPWI212.SPL (Mirror Image)
+    ReallyForceSpell(Myself,WIZARD_MANTLE)
+    SetGlobal("Prep","LOCALS",1)
+END
+
+IF
+  See([GOODCUTOFF])
+  Global("Prep","LOCALS",0)
+  DifficultyLT(HARDEST)
+THEN
+  RESPONSE #100
+    ReallyForceSpell(Myself,WIZARD_MIRROR_IMAGE)  // SPWI212.SPL (Mirror Image)
+    SetGlobal("Prep","LOCALS",1)
+END
+
+/////////////////////////////////////////////////////////////////////
+// Hunt the Player
+/////////////////////////////////////////////////////////////////////
+IF
+  !Detect([GOODCUTOFF])
+  Allegiance(Myself,ENEMY)
+  OR(2)
+    Global("Prep","LOCALS",1)
+    TookDamage()
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+  CheckStatLT(Player1,1,SANCTUARY)
+  !StateCheck(Player1,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",ONE_ROUND)
+    MoveToObject(Player1)
+END
+
+IF
+  !Detect([GOODCUTOFF])
+  Allegiance(Myself,ENEMY)
+  OR(2)
+    Global("Prep","LOCALS",1)
+    TookDamage()
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+  CheckStatLT(Player2,1,SANCTUARY)
+  !StateCheck(Player2,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",ONE_ROUND)
+    MoveToObject(Player2)
+END
+
+IF
+  !Detect([GOODCUTOFF])
+  Allegiance(Myself,ENEMY)
+  OR(2)
+    Global("Prep","LOCALS",1)
+    TookDamage()
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+  CheckStatLT(Player3,1,SANCTUARY)
+  !StateCheck(Player3,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",ONE_ROUND)
+    MoveToObject(Player3)
+END
+
+IF
+  !Detect([GOODCUTOFF])
+  Allegiance(Myself,ENEMY)
+  OR(2)
+    Global("Prep","LOCALS",1)
+    TookDamage()
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+  CheckStatLT(Player4,1,SANCTUARY)
+  !StateCheck(Player4,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",ONE_ROUND)
+    MoveToObject(Player4)
+END
+
+IF
+  !Detect([GOODCUTOFF])
+  Allegiance(Myself,ENEMY)
+  OR(2)
+    Global("Prep","LOCALS",1)
+    TookDamage()
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+  CheckStatLT(Player5,1,SANCTUARY)
+  !StateCheck(Player5,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",ONE_ROUND)
+    MoveToObject(Player5)
+END
+
+IF
+  !Detect([GOODCUTOFF])
+  Allegiance(Myself,ENEMY)
+  OR(2)
+    Global("Prep","LOCALS",1)
+    TookDamage()
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+  CheckStatLT(Player6,1,SANCTUARY)
+  !StateCheck(Player6,STATE_INVISIBLE)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",ONE_ROUND)
+    MoveToObject(Player6)
+END
+
+IF
+    GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+    !Detect([GOODCUTOFF])
+    Allegiance(Myself,ENEMY)
+THEN
+    RESPONSE #100
+END
+
+/////////////////////////////////////////////////////////////////////
+// Ability: Lilitu Charm
+/////////////////////////////////////////////////////////////////////
+IF      
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  DifficultyGT(HARD)
+  !Gender(SixthNearestEnemyOf(Myself),SUMMONED)
+  CheckStatGT(SixthNearestEnemyOf(Myself),1,SAVEVSSPELL)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_BERSERK) // Minsc Berserk
+  !CheckSpellState(SixthNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(SixthNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !Class(SixthNearestEnemyOf(Myself),MONK)
+  !Kit(SixthNearestEnemyOf(Myself),INQUISITOR)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !CheckSpellState(SixthNearestEnemyOf(Myself),SI_ENCHANTMENT)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStatLT(SixthNearestEnemyOf(Myself),1,WIZARD_SPELL_DEFLECTION)
+  CheckStatLT(SixthNearestEnemyOf(Myself),1,WIZARD_SPELL_TURNING)
+  !CheckStat(SixthNearestEnemyOf(Myself),1,WIZARD_SPELL_TRAP)
+  !CheckStat(SixthNearestEnemyOf(Myself),1,CLERIC_SHIELD_OF_THE_ARCHONS)
+  !HasItemEquiped("HELM06",SixthNearestEnemyOf(Myself)) // Helm of Charm Protection
+  !HasItemEquiped("MISCBC",SixthNearestEnemyOf(Myself)) // Blackrazor
+  !HasItemEquiped("NPCHAN",SixthNearestEnemyOf(Myself)) // Corthala Family Armor
+  !HasItemEquiped("REAVER",SixthNearestEnemyOf(Myself)) // Unholy Reaver
+  !HasItemEquiped("SHLD25",SixthNearestEnemyOf(Myself)) // Shield of Harmony +2
+  !HasItemEquipedReal("SPER07",SixthNearestEnemyOf(Myself)) // Spear of the Unicorn +2           
+  !HasItemEquipedReal("STAF11",SixthNearestEnemyOf(Myself)) // Staff of the Magi
+  !HasItemEquipedReal("SW1H35",SixthNearestEnemyOf(Myself)) // Adjatha the Drinker +2
+  !HasItemEquipedReal("SW1H54",SixthNearestEnemyOf(Myself)) // The Equalizer
+  !HasItemEquipedReal("SW2H14",SixthNearestEnemyOf(Myself)) // Lilarcor
+  See(SixthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF      
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  DifficultyGT(HARD)
+  !Gender(FifthNearestEnemyOf(Myself),SUMMONED)
+  CheckStatGT(FifthNearestEnemyOf(Myself),1,SAVEVSSPELL)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_BERSERK) // Minsc Berserk
+  !CheckSpellState(FifthNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(FifthNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !Class(FifthNearestEnemyOf(Myself),MONK)
+  !Kit(FifthNearestEnemyOf(Myself),INQUISITOR)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !CheckSpellState(FifthNearestEnemyOf(Myself),SI_ENCHANTMENT)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStatLT(FifthNearestEnemyOf(Myself),1,WIZARD_SPELL_DEFLECTION)
+  CheckStatLT(FifthNearestEnemyOf(Myself),1,WIZARD_SPELL_TURNING)
+  !CheckStat(FifthNearestEnemyOf(Myself),1,WIZARD_SPELL_TRAP)
+  !CheckStat(FifthNearestEnemyOf(Myself),1,CLERIC_SHIELD_OF_THE_ARCHONS)
+  !HasItemEquiped("HELM06",FifthNearestEnemyOf(Myself)) // Helm of Charm Protection
+  !HasItemEquiped("MISCBC",FifthNearestEnemyOf(Myself)) // Blackrazor
+  !HasItemEquiped("NPCHAN",FifthNearestEnemyOf(Myself)) // Corthala Family Armor
+  !HasItemEquiped("REAVER",FifthNearestEnemyOf(Myself)) // Unholy Reaver
+  !HasItemEquiped("SHLD25",FifthNearestEnemyOf(Myself)) // Shield of Harmony +2
+  !HasItemEquipedReal("SPER07",FifthNearestEnemyOf(Myself)) // Spear of the Unicorn +2           
+  !HasItemEquipedReal("STAF11",FifthNearestEnemyOf(Myself)) // Staff of the Magi
+  !HasItemEquipedReal("SW1H35",FifthNearestEnemyOf(Myself)) // Adjatha the Drinker +2
+  !HasItemEquipedReal("SW1H54",FifthNearestEnemyOf(Myself)) // The Equalizer
+  !HasItemEquipedReal("SW2H14",FifthNearestEnemyOf(Myself)) // Lilarcor
+  See(FifthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF      
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  DifficultyGT(HARD)
+  !Gender(FourthNearestEnemyOf(Myself),SUMMONED)
+  CheckStatGT(FourthNearestEnemyOf(Myself),1,SAVEVSSPELL)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_BERSERK) // Minsc Berserk
+  !CheckSpellState(FourthNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(FourthNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !Class(FourthNearestEnemyOf(Myself),MONK)
+  !Kit(FourthNearestEnemyOf(Myself),INQUISITOR)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !CheckSpellState(FourthNearestEnemyOf(Myself),SI_ENCHANTMENT)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStatLT(FourthNearestEnemyOf(Myself),1,WIZARD_SPELL_DEFLECTION)
+  CheckStatLT(FourthNearestEnemyOf(Myself),1,WIZARD_SPELL_TURNING)
+  !CheckStat(FourthNearestEnemyOf(Myself),1,WIZARD_SPELL_TRAP)
+  !CheckStat(FourthNearestEnemyOf(Myself),1,CLERIC_SHIELD_OF_THE_ARCHONS)
+  !HasItemEquiped("HELM06",FourthNearestEnemyOf(Myself)) // Helm of Charm Protection
+  !HasItemEquiped("MISCBC",FourthNearestEnemyOf(Myself)) // Blackrazor
+  !HasItemEquiped("NPCHAN",FourthNearestEnemyOf(Myself)) // Corthala Family Armor
+  !HasItemEquiped("REAVER",FourthNearestEnemyOf(Myself)) // Unholy Reaver
+  !HasItemEquiped("SHLD25",FourthNearestEnemyOf(Myself)) // Shield of Harmony +2
+  !HasItemEquipedReal("SPER07",FourthNearestEnemyOf(Myself)) // Spear of the Unicorn +2           
+  !HasItemEquipedReal("STAF11",FourthNearestEnemyOf(Myself)) // Staff of the Magi
+  !HasItemEquipedReal("SW1H35",FourthNearestEnemyOf(Myself)) // Adjatha the Drinker +2
+  !HasItemEquipedReal("SW1H54",FourthNearestEnemyOf(Myself)) // The Equalizer
+  !HasItemEquipedReal("SW2H14",FourthNearestEnemyOf(Myself)) // Lilarcor
+  See(FourthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF      
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  DifficultyGT(HARD)
+  !Gender(ThirdNearestEnemyOf(Myself),SUMMONED)
+  CheckStatGT(ThirdNearestEnemyOf(Myself),1,SAVEVSSPELL)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_BERSERK) // Minsc Berserk
+  !CheckSpellState(ThirdNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(ThirdNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !Class(ThirdNearestEnemyOf(Myself),MONK)
+  !Kit(ThirdNearestEnemyOf(Myself),INQUISITOR)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !CheckSpellState(ThirdNearestEnemyOf(Myself),SI_ENCHANTMENT)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStatLT(ThirdNearestEnemyOf(Myself),1,WIZARD_SPELL_DEFLECTION)
+  CheckStatLT(ThirdNearestEnemyOf(Myself),1,WIZARD_SPELL_TURNING)
+  !CheckStat(ThirdNearestEnemyOf(Myself),1,WIZARD_SPELL_TRAP)
+  !CheckStat(ThirdNearestEnemyOf(Myself),1,CLERIC_SHIELD_OF_THE_ARCHONS)
+  !HasItemEquiped("HELM06",ThirdNearestEnemyOf(Myself)) // Helm of Charm Protection
+  !HasItemEquiped("MISCBC",ThirdNearestEnemyOf(Myself)) // Blackrazor
+  !HasItemEquiped("NPCHAN",ThirdNearestEnemyOf(Myself)) // Corthala Family Armor
+  !HasItemEquiped("REAVER",ThirdNearestEnemyOf(Myself)) // Unholy Reaver
+  !HasItemEquiped("SHLD25",ThirdNearestEnemyOf(Myself)) // Shield of Harmony +2
+  !HasItemEquipedReal("SPER07",ThirdNearestEnemyOf(Myself)) // Spear of the Unicorn +2           
+  !HasItemEquipedReal("STAF11",ThirdNearestEnemyOf(Myself)) // Staff of the Magi
+  !HasItemEquipedReal("SW1H35",ThirdNearestEnemyOf(Myself)) // Adjatha the Drinker +2
+  !HasItemEquipedReal("SW1H54",ThirdNearestEnemyOf(Myself)) // The Equalizer
+  !HasItemEquipedReal("SW2H14",ThirdNearestEnemyOf(Myself)) // Lilarcor
+  See(ThirdNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF      
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  DifficultyGT(HARD)
+  !Gender(SecondNearestEnemyOf(Myself),SUMMONED)
+  CheckStatGT(SecondNearestEnemyOf(Myself),1,SAVEVSSPELL)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_BERSERK) // Minsc Berserk
+  !CheckSpellState(SecondNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(SecondNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !Class(SecondNearestEnemyOf(Myself),MONK)
+  !Kit(SecondNearestEnemyOf(Myself),INQUISITOR)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !CheckSpellState(SecondNearestEnemyOf(Myself),SI_ENCHANTMENT)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStatLT(SecondNearestEnemyOf(Myself),1,WIZARD_SPELL_DEFLECTION)
+  CheckStatLT(SecondNearestEnemyOf(Myself),1,WIZARD_SPELL_TURNING)
+  !CheckStat(SecondNearestEnemyOf(Myself),1,WIZARD_SPELL_TRAP)
+  !CheckStat(SecondNearestEnemyOf(Myself),1,CLERIC_SHIELD_OF_THE_ARCHONS)
+  !HasItemEquiped("HELM06",SecondNearestEnemyOf(Myself)) // Helm of Charm Protection
+  !HasItemEquiped("MISCBC",SecondNearestEnemyOf(Myself)) // Blackrazor
+  !HasItemEquiped("NPCHAN",SecondNearestEnemyOf(Myself)) // Corthala Family Armor
+  !HasItemEquiped("REAVER",SecondNearestEnemyOf(Myself)) // Unholy Reaver
+  !HasItemEquiped("SHLD25",SecondNearestEnemyOf(Myself)) // Shield of Harmony +2
+  !HasItemEquipedReal("SPER07",SecondNearestEnemyOf(Myself)) // Spear of the Unicorn +2           
+  !HasItemEquipedReal("STAF11",SecondNearestEnemyOf(Myself)) // Staff of the Magi
+  !HasItemEquipedReal("SW1H35",SecondNearestEnemyOf(Myself)) // Adjatha the Drinker +2
+  !HasItemEquipedReal("SW1H54",SecondNearestEnemyOf(Myself)) // The Equalizer
+  !HasItemEquipedReal("SW2H14",SecondNearestEnemyOf(Myself)) // Lilarcor
+  See(SecondNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF      
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  DifficultyGT(HARD)
+  !Gender(NearestEnemyOf(Myself),SUMMONED)
+  CheckStatGT(NearestEnemyOf(Myself),1,SAVEVSSPELL)
+  !StateCheck(NearestEnemyOf(Myself),STATE_BERSERK) // Minsc Berserk
+  !CheckSpellState(NearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(NearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !Class(NearestEnemyOf(Myself),MONK)
+  !Kit(NearestEnemyOf(Myself),INQUISITOR)
+  !StateCheck(NearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !CheckSpellState(NearestEnemyOf(Myself),SI_ENCHANTMENT)
+  !StateCheck(NearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStatLT(NearestEnemyOf(Myself),1,WIZARD_SPELL_DEFLECTION)
+  CheckStatLT(NearestEnemyOf(Myself),1,WIZARD_SPELL_TURNING)
+  !CheckStat(NearestEnemyOf(Myself),1,WIZARD_SPELL_TRAP)
+  !CheckStat(NearestEnemyOf(Myself),1,CLERIC_SHIELD_OF_THE_ARCHONS)
+  !HasItemEquiped("HELM06",NearestEnemyOf(Myself)) // Helm of Charm Protection
+  !HasItemEquiped("MISCBC",NearestEnemyOf(Myself)) // Blackrazor
+  !HasItemEquiped("NPCHAN",NearestEnemyOf(Myself)) // Corthala Family Armor
+  !HasItemEquiped("REAVER",NearestEnemyOf(Myself)) // Unholy Reaver
+  !HasItemEquiped("SHLD25",NearestEnemyOf(Myself)) // Shield of Harmony +2
+  !HasItemEquipedReal("SPER07",NearestEnemyOf(Myself)) // Spear of the Unicorn +2           
+  !HasItemEquipedReal("STAF11",NearestEnemyOf(Myself)) // Staff of the Magi
+  !HasItemEquipedReal("SW1H35",NearestEnemyOf(Myself)) // Adjatha the Drinker +2
+  !HasItemEquipedReal("SW1H54",NearestEnemyOf(Myself)) // The Equalizer
+  !HasItemEquipedReal("SW2H14",NearestEnemyOf(Myself)) // Lilarcor
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF 
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  DifficultyGT(HARD)
+  Allegiance(Myself,ENEMY)
+  See(LastSeenBy(Myself))
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+  !Gender(LastSeenBy(Myself),SUMMONED)
+  CheckStatGT(LastSeenBy(Myself),1,SAVEVSSPELL)
+  !StateCheck(LastSeenBy(Myself),STATE_BERSERK) // Minsc Berserk
+  !CheckSpellState(Myself,BERSERKER_RAGE)
+  !CheckSpellState(Myself,BARBARIAN_RAGE)
+  !Class(LastSeenBy(Myself),MONK)
+  !Kit(LastSeenBy(Myself),INQUISITOR)
+  !StateCheck(LastSeenBy(Myself),STATE_NOT_TARGETABLE)
+  !CheckSpellState(LastSeenBy(Myself),SI_ENCHANTMENT)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  CheckStatLT(LastSeenBy(Myself),1,WIZARD_SPELL_DEFLECTION)
+  CheckStatLT(LastSeenBy(Myself),1,WIZARD_SPELL_TURNING)
+  !CheckStat(LastSeenBy(Myself),1,WIZARD_SPELL_TRAP)
+  !CheckStat(LastSeenBy(Myself),1,CLERIC_SHIELD_OF_THE_ARCHONS)
+  !HasItemEquiped("HELM06",LastSeenBy(Myself)) // Helm of Charm Protection
+  !HasItemEquiped("MISCBC",LastSeenBy(Myself)) // Blackrazor
+  !HasItemEquiped("NPCHAN",LastSeenBy(Myself)) // Corthala Family Armor
+  !HasItemEquiped("REAVER",LastSeenBy(Myself)) // Unholy Reaver
+  !HasItemEquiped("SHLD25",LastSeenBy(Myself)) // Shield of Harmony +2
+  !HasItemEquipedReal("SPER07",LastSeenBy(Myself)) // Spear of the Unicorn +2           
+  !HasItemEquipedReal("STAF11",LastSeenBy(Myself)) // Staff of the Magi
+  !HasItemEquipedReal("SW1H35",LastSeenBy(Myself)) // Adjatha the Drinker +2
+  !HasItemEquipedReal("SW1H54",LastSeenBy(Myself)) // The Equalizer
+  !HasItemEquipedReal("SW2H14",LastSeenBy(Myself)) // Lilarcor
+  !CheckStatGT(Myself,0,CLERIC_INSECT_PLAGUE)
+  !StateCheck(Myself,STATE_POISONED)
+  !StateCheck(Myself,STATE_SILENCED)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_SpellCastTimer","LOCALS",6)
+    SetInterrupt(FALSE)
+    SpellNoDec(LastSeenBy(Myself),ERINYES_CHARM)
+    SetInterrupt(TRUE)
+  RESPONSE #100
+    Continue()
+END
+
+/////////////////////////////////////////////////////////////////////
+// Ability: Demon Fear
+/////////////////////////////////////////////////////////////////////
+IF
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  !GlobalTimerNotExpired("MO_FearTimer","LOCALS")
+  !Kit(SixthNearestEnemyOf(Myself),CAVALIER)
+  !Kit(SixthNearestEnemyOf(Myself),Blackguard)
+  !CheckSpellState(SixthNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !CheckSpellState(SixthNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(SixthNearestEnemyOf(Myself),MINSC_BERSERK)
+  !CheckSpellState(SixthNearestEnemyOf(Myself),RESIST_FEAR)
+  !CheckSpellState(SixthNearestEnemyOf(Myself),SI_CONJURATION)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !CheckStatGT(SixthNearestEnemyOf(Myself),0,SANCTUARY)
+  !StateCheck(SixthNearestEnemyOf(Myself),STATE_HARMLESS)
+  !CheckStatGT(SixthNearestEnemyOf(Myself),25,RESISTMAGIC)
+  See(SixthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  !GlobalTimerNotExpired("MO_FearTimer","LOCALS")
+  !Kit(FifthNearestEnemyOf(Myself),CAVALIER)
+  !Kit(FifthNearestEnemyOf(Myself),Blackguard)
+  !CheckSpellState(FifthNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !CheckSpellState(FifthNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(FifthNearestEnemyOf(Myself),MINSC_BERSERK)
+  !CheckSpellState(FifthNearestEnemyOf(Myself),RESIST_FEAR)
+  !CheckSpellState(FifthNearestEnemyOf(Myself),SI_CONJURATION)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !CheckStatGT(FifthNearestEnemyOf(Myself),0,SANCTUARY)
+  !StateCheck(FifthNearestEnemyOf(Myself),STATE_HARMLESS)
+  !CheckStatGT(FifthNearestEnemyOf(Myself),25,RESISTMAGIC)
+  See(FifthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  !GlobalTimerNotExpired("MO_FearTimer","LOCALS")
+  !Kit(FourthNearestEnemyOf(Myself),CAVALIER)
+  !Kit(FourthNearestEnemyOf(Myself),Blackguard)
+  !CheckSpellState(FourthNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !CheckSpellState(FourthNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(FourthNearestEnemyOf(Myself),MINSC_BERSERK)
+  !CheckSpellState(FourthNearestEnemyOf(Myself),RESIST_FEAR)
+  !CheckSpellState(FourthNearestEnemyOf(Myself),SI_CONJURATION)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !CheckStatGT(FourthNearestEnemyOf(Myself),0,SANCTUARY)
+  !StateCheck(FourthNearestEnemyOf(Myself),STATE_HARMLESS)
+  !CheckStatGT(FourthNearestEnemyOf(Myself),25,RESISTMAGIC)
+  See(FourthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  !GlobalTimerNotExpired("MO_FearTimer","LOCALS")
+  !Kit(ThirdNearestEnemyOf(Myself),CAVALIER)
+  !Kit(ThirdNearestEnemyOf(Myself),Blackguard)
+  !CheckSpellState(ThirdNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !CheckSpellState(ThirdNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(ThirdNearestEnemyOf(Myself),MINSC_BERSERK)
+  !CheckSpellState(ThirdNearestEnemyOf(Myself),RESIST_FEAR)
+  !CheckSpellState(ThirdNearestEnemyOf(Myself),SI_CONJURATION)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !CheckStatGT(ThirdNearestEnemyOf(Myself),0,SANCTUARY)
+  !StateCheck(ThirdNearestEnemyOf(Myself),STATE_HARMLESS)
+  !CheckStatGT(ThirdNearestEnemyOf(Myself),25,RESISTMAGIC)
+  See(ThirdNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  !GlobalTimerNotExpired("MO_FearTimer","LOCALS")
+  !Kit(SecondNearestEnemyOf(Myself),CAVALIER)
+  !Kit(SecondNearestEnemyOf(Myself),Blackguard)
+  !CheckSpellState(SecondNearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !CheckSpellState(SecondNearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(SecondNearestEnemyOf(Myself),MINSC_BERSERK)
+  !CheckSpellState(SecondNearestEnemyOf(Myself),RESIST_FEAR)
+  !CheckSpellState(SecondNearestEnemyOf(Myself),SI_CONJURATION)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !CheckStatGT(SecondNearestEnemyOf(Myself),0,SANCTUARY)
+  !StateCheck(SecondNearestEnemyOf(Myself),STATE_HARMLESS)
+  !CheckStatGT(SecondNearestEnemyOf(Myself),25,RESISTMAGIC)
+  See(SecondNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  !GlobalTimerNotExpired("MO_FearTimer","LOCALS")
+  !Kit(NearestEnemyOf(Myself),CAVALIER)
+  !Kit(NearestEnemyOf(Myself),Blackguard)
+  !CheckSpellState(NearestEnemyOf(Myself),BARBARIAN_RAGE)
+  !CheckSpellState(NearestEnemyOf(Myself),BERSERKER_RAGE)
+  !CheckSpellState(NearestEnemyOf(Myself),MINSC_BERSERK)
+  !CheckSpellState(NearestEnemyOf(Myself),RESIST_FEAR)
+  !CheckSpellState(NearestEnemyOf(Myself),SI_CONJURATION)
+  !StateCheck(NearestEnemyOf(Myself),STATE_NOT_TARGETABLE)
+  !StateCheck(NearestEnemyOf(Myself),STATE_IMPROVEDINVISIBILITY)
+  !CheckStatGT(NearestEnemyOf(Myself),0,SANCTUARY)
+  !StateCheck(NearestEnemyOf(Myself),STATE_HARMLESS)
+  !CheckStatGT(NearestEnemyOf(Myself),25,RESISTMAGIC)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF 
+  OR(2)
+    !GlobalTimerNotExpired("MO_SpellCastTimer","LOCALS")
+    CheckStatGT(Myself,0,AURACLEANSING)
+  !GlobalTimerNotExpired("MO_FearTimer","LOCALS")
+  Allegiance(Myself,ENEMY)
+  See(LastSeenBy(Myself))
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+  !Kit(LastSeenBy(Myself),CAVALIER)
+  !Kit(LastSeenBy(Myself),Blackguard)
+  !CheckSpellState(LastSeenBy(Myself),BARBARIAN_RAGE)
+  !CheckSpellState(LastSeenBy(Myself),BERSERKER_RAGE)
+  !CheckSpellState(LastSeenBy(Myself),MINSC_BERSERK)
+  !CheckSpellState(LastSeenBy(Myself),RESIST_FEAR)
+  !CheckSpellState(LastSeenBy(Myself),SI_CONJURATION)
+  !StateCheck(LastSeenBy(Myself),STATE_NOT_TARGETABLE)
+  !StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)
+  !CheckStatGT(LastSeenBy(Myself),0,SANCTUARY)
+  !StateCheck(LastSeenBy(Myself),STATE_HARMLESS)
+  !CheckStatGT(LastSeenBy(Myself),25,RESISTMAGIC)
+  !CheckStatGT(Myself,0,CLERIC_INSECT_PLAGUE)
+  !StateCheck(Myself,STATE_POISONED)
+  !StateCheck(Myself,STATE_SILENCED)
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_SpellCastTimer","LOCALS",6)
+    SetGlobalTimer("MO_FearTimer","LOCALS",12)
+    SetInterrupt(FALSE)
+    ReallyForceSpell(LastSeenBy(Myself),DEMON_FEAR)
+    SetInterrupt(TRUE)
+  RESPONSE #100
+    Continue()
+END
+
+/////////////////////////////////////////////////////////////////////
+// Swap to Ranged Weapon
+/////////////////////////////////////////////////////////////////////
+IF 
+  OR(7)
+    !Range(NearestEnemyOf(Myself),5)
+    !Range(SecondNearestEnemyOf(Myself),5)
+    !Range(ThirdNearestEnemyOf(Myself),5)
+    !Range(FourthNearestEnemyOf(Myself),5)
+    !Range(FifthNearestEnemyOf(Myself),5)
+    !Range(SixthNearestEnemyOf(Myself),5)
+    GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+  !IsWeaponRanged(Myself)
+  CanEquipRanged()
+THEN
+  RESPONSE #100
+    EquipRanged()
+    Continue()
+END
+
+/////////////////////////////////////////////////////////////////////
+// Move if damaged and enemy is close
+/////////////////////////////////////////////////////////////////////
+IF
+  HPPercentLT(Myself,50)
+  Range(NearestEnemyOf(Myself),5)
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    RunAwayFrom(NearestEnemyOf(Myself),15) // One second running away before re-evaluate
+END
+
+/////////////////////////////////////////////////////////////////////
+// Attack
+/////////////////////////////////////////////////////////////////////
+IF
+  See([GOODCUTOFF])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  OR(6)
+    See(Player1)
+    See(Player2)
+    See(Player3)
+    See(Player4)
+    See(Player5)
+    See(Player6)
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  !CheckSpellState(SixthNearestEnemyOf(Myself),ENTROPY_SHIELD)
+  !CheckStatGT(SixthNearestEnemyOf(Myself),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SixthNearestEnemyOf(Myself))  // Reflection Shield +1
+  WeaponEffectiveVs(SixthNearestEnemyOf(Myself),MAINHAND)
+  WeaponCanDamage(SixthNearestEnemyOf(Myself),MAINHAND)
+  !Range(SixthNearestEnemyOf(Myself),5)
+  CheckStatLT(SixthNearestEnemyOf(Myself),1,SANCTUARY)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  !CheckSpellState(FifthNearestEnemyOf(Myself),ENTROPY_SHIELD)
+  !CheckStatGT(FifthNearestEnemyOf(Myself),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",FifthNearestEnemyOf(Myself))  // Reflection Shield +1
+  WeaponEffectiveVs(FifthNearestEnemyOf(Myself),MAINHAND)
+  WeaponCanDamage(FifthNearestEnemyOf(Myself),MAINHAND)
+  !Range(FifthNearestEnemyOf(Myself),5)
+  CheckStatLT(FifthNearestEnemyOf(Myself),1,SANCTUARY)
+  See(FifthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  !CheckSpellState(FourthNearestEnemyOf(Myself),ENTROPY_SHIELD)
+  !CheckStatGT(FourthNearestEnemyOf(Myself),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",FourthNearestEnemyOf(Myself))  // Reflection Shield +1
+  WeaponEffectiveVs(FourthNearestEnemyOf(Myself),MAINHAND)
+  WeaponCanDamage(FourthNearestEnemyOf(Myself),MAINHAND)
+  !Range(FourthNearestEnemyOf(Myself),5)
+  CheckStatLT(FourthNearestEnemyOf(Myself),1,SANCTUARY)
+  See(FourthNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  !CheckSpellState(ThirdNearestEnemyOf(Myself),ENTROPY_SHIELD)
+  !CheckStatGT(ThirdNearestEnemyOf(Myself),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",ThirdNearestEnemyOf(Myself))  // Reflection Shield +1
+  WeaponEffectiveVs(ThirdNearestEnemyOf(Myself),MAINHAND)
+  WeaponCanDamage(ThirdNearestEnemyOf(Myself),MAINHAND)
+  !Range(ThirdNearestEnemyOf(Myself),5)
+  CheckStatLT(ThirdNearestEnemyOf(Myself),1,SANCTUARY)
+  See(ThirdNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  !CheckSpellState(SecondNearestEnemyOf(Myself),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearestEnemyOf(Myself),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearestEnemyOf(Myself))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearestEnemyOf(Myself),MAINHAND)
+  WeaponCanDamage(SecondNearestEnemyOf(Myself),MAINHAND)
+  !Range(SecondNearestEnemyOf(Myself),5)
+  CheckStatLT(SecondNearestEnemyOf(Myself),1,SANCTUARY)
+  See(SecondNearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  !Allegiance(Myself,ENEMY)
+  !CheckSpellState(NearestEnemyOf(Myself),ENTROPY_SHIELD)
+  !CheckStatGT(NearestEnemyOf(Myself),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",NearestEnemyOf(Myself))  // Reflection Shield +1
+  WeaponEffectiveVs(NearestEnemyOf(Myself),MAINHAND)
+  WeaponCanDamage(NearestEnemyOf(Myself),MAINHAND)
+  !Range(NearestEnemyOf(Myself),5)
+  CheckStatLT(NearestEnemyOf(Myself),1,SANCTUARY)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(SixthNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(SixthNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SixthNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(SixthNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(SixthNearest([GOODCUTOFF]),MAINHAND)
+  !Range(SixthNearest([GOODCUTOFF]),5)
+  CheckStatLT(SixthNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(SixthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(FifthNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(FifthNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",FifthNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(FifthNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(FifthNearest([GOODCUTOFF]),MAINHAND)
+  !Range(FifthNearest([GOODCUTOFF]),5)
+  CheckStatLT(FifthNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(FifthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(FourthNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(FourthNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",FourthNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(FourthNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(FourthNearest([GOODCUTOFF]),MAINHAND)
+  !Range(FourthNearest([GOODCUTOFF]),5)
+  CheckStatLT(FourthNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(FourthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(ThirdNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(ThirdNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",ThirdNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(ThirdNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(ThirdNearest([GOODCUTOFF]),MAINHAND)
+  !Range(ThirdNearest([GOODCUTOFF]),5)
+  CheckStatLT(ThirdNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(ThirdNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF]),MAINHAND)
+  !Range(SecondNearest([GOODCUTOFF]),5)
+  CheckStatLT(SecondNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(SecondNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState([GOODCUTOFF],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF],MAINHAND)
+  CheckStatLT([GOODCUTOFF],1,SANCTUARY)
+  !Range([GOODCUTOFF],5)
+  See([GOODCUTOFF])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(SixthNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(SixthNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SixthNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(SixthNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(SixthNearest([GOODCUTOFF]),MAINHAND)
+  CheckStatLT(SixthNearest([GOODCUTOFF]),1,STONESKINS)
+  CheckStatLT(SixthNearest([GOODCUTOFF]),100,RESISTMISSILE)
+  !Range(SixthNearest([GOODCUTOFF]),5)
+  CheckStatLT(SixthNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(SixthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(FifthNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(FifthNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",FifthNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(FifthNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(FifthNearest([GOODCUTOFF]),MAINHAND)
+  CheckStatLT(FifthNearest([GOODCUTOFF]),1,STONESKINS)
+  CheckStatLT(FifthNearest([GOODCUTOFF]),100,RESISTMISSILE)
+  !Range(FifthNearest([GOODCUTOFF]),5)
+  CheckStatLT(FifthNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(FifthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(FourthNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(FourthNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",FourthNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(FourthNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(FourthNearest([GOODCUTOFF]),MAINHAND)
+  CheckStatLT(FourthNearest([GOODCUTOFF]),1,STONESKINS)
+  CheckStatLT(FourthNearest([GOODCUTOFF]),100,RESISTMISSILE)
+  !Range(FourthNearest([GOODCUTOFF]),5)
+  CheckStatLT(FourthNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(FourthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(ThirdNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(ThirdNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",ThirdNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(ThirdNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(ThirdNearest([GOODCUTOFF]),MAINHAND)
+  CheckStatLT(ThirdNearest([GOODCUTOFF]),1,STONESKINS)
+  CheckStatLT(ThirdNearest([GOODCUTOFF]),100,RESISTMISSILE)
+  !Range(ThirdNearest([GOODCUTOFF]),5)
+  CheckStatLT(ThirdNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(ThirdNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF]),MAINHAND)
+  CheckStatLT(SecondNearest([GOODCUTOFF]),1,STONESKINS)
+  CheckStatLT(SecondNearest([GOODCUTOFF]),100,RESISTMISSILE)
+  !Range(SecondNearest([GOODCUTOFF]),5)
+  CheckStatLT(SecondNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(SecondNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  !CheckSpellState([GOODCUTOFF],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF],MAINHAND)
+  CheckStatLT([GOODCUTOFF],1,STONESKINS)
+  CheckStatLT([GOODCUTOFF],100,RESISTMISSILE)
+  !Range([GOODCUTOFF],5)
+  CheckStatLT([GOODCUTOFF],1,SANCTUARY)
+  See([GOODCUTOFF])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(WorstAC([PC]),ENTROPY_SHIELD)
+  !CheckStatGT(WorstAC([PC]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",WorstAC([PC]))  // Reflection Shield +1
+  WeaponEffectiveVs(WorstAC([PC]),MAINHAND)
+  WeaponCanDamage(WorstAC([PC]),MAINHAND)
+  CheckStatLT(WorstAC([PC]),1,STONESKINS)
+  CheckStatLT(WorstAC([PC]),100,RESISTMISSILE)
+  !StateCheck(WorstAC([PC]),STATE_CHARMED)
+  !Range(WorstAC([PC]),5)
+  CheckStatLT(WorstAC([PC]),1,SANCTUARY)
+  See(WorstAC([PC]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),-10,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),1,STONESKINS)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),100,RESISTMISSILE)
+  !Range(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),5)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),1,SANCTUARY)
+  See(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.DRUID_ALL],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.DRUID_ALL],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.DRUID_ALL])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.DRUID_ALL],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.DRUID_ALL],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.DRUID_ALL],-10,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.DRUID_ALL],1,STONESKINS)
+  CheckStatLT([GOODCUTOFF.0.0.DRUID_ALL],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.DRUID_ALL],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.DRUID_ALL],5)
+  See([GOODCUTOFF.0.0.DRUID_ALL])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),-10,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),1,STONESKINS)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),100,RESISTMISSILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),1,SANCTUARY)
+  !Range(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),5)
+  See(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.CLERIC_ALL],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.CLERIC_ALL],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.CLERIC_ALL])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.CLERIC_ALL],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.CLERIC_ALL],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.CLERIC_ALL],-10,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.CLERIC_ALL],1,STONESKINS)
+  CheckStatLT([GOODCUTOFF.0.0.CLERIC_ALL],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.CLERIC_ALL],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.CLERIC_ALL],5)
+  See([GOODCUTOFF.0.0.CLERIC_ALL])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF.0.0.THIEF]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF.0.0.THIEF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF.0.0.THIEF]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF.0.0.THIEF]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF.0.0.THIEF]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.THIEF]),-10,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.THIEF]),1,STONESKINS)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.THIEF]),100,RESISTMISSILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.THIEF]),1,SANCTUARY)
+  !Range(SecondNearest([GOODCUTOFF.0.0.THIEF]),5)
+  See(SecondNearest([GOODCUTOFF.0.0.THIEF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.THIEF],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.THIEF],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.THIEF])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.THIEF],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.THIEF],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.THIEF],-10,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.THIEF],1,STONESKINS)
+  CheckStatLT([GOODCUTOFF.0.0.THIEF],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.THIEF],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.THIEF],5)
+  See([GOODCUTOFF.0.0.THIEF])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF.0.0.BARD_ALL]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),-10,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),1,STONESKINS)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),100,RESISTMISSILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),1,SANCTUARY)
+  !Range(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),5)
+  See(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.BARD_ALL],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.BARD_ALL],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.BARD_ALL])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.BARD_ALL],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.BARD_ALL],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.BARD_ALL],-10,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.BARD_ALL],1,STONESKINS)
+  CheckStatLT([GOODCUTOFF.0.0.BARD_ALL],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.BARD_ALL],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.BARD_ALL],5)
+  See([GOODCUTOFF.0.0.BARD_ALL])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),-10,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),1,STONESKINS)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),100,RESISTMISSILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),1,SANCTUARY)
+  !Range(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),5)
+  See(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.MAGE_ALL],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.MAGE_ALL],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.MAGE_ALL])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.MAGE_ALL],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.MAGE_ALL],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.MAGE_ALL],-10,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_ALL],1,STONESKINS)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_ALL],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_ALL],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.MAGE_ALL],5)
+  See([GOODCUTOFF.0.0.MAGE_ALL])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.MAGE_THIEF],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.MAGE_THIEF],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.MAGE_THIEF])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.MAGE_THIEF],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.MAGE_THIEF],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.MAGE_THIEF],-10,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_THIEF],1,STONESKINS)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_THIEF],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_THIEF],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.MAGE_THIEF],5)
+  See([GOODCUTOFF.0.0.MAGE_THIEF])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.MAGE],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.MAGE],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.MAGE])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.MAGE],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.MAGE],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.MAGE],-10,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE],1,STONESKINS)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.MAGE],5)
+  See([GOODCUTOFF.0.0.MAGE])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(ThirdNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(ThirdNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",ThirdNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(ThirdNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(ThirdNearest([GOODCUTOFF]),MAINHAND)
+  CheckStatGT(ThirdNearest([GOODCUTOFF]),-5,ACMISSILEMOD)
+  CheckStatLT(ThirdNearest([GOODCUTOFF]),1,STONESKINS)
+  StateCheck(ThirdNearest([GOODCUTOFF]),STATE_IMMOBILE)
+  CheckStatLT(ThirdNearest([GOODCUTOFF]),100,RESISTMISSILE)
+  CheckStatLT(ThirdNearest([GOODCUTOFF]),1,SANCTUARY)
+  !Range(ThirdNearest([GOODCUTOFF]),5)
+  See(ThirdNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF]),-5,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF]),1,STONESKINS)
+  StateCheck(SecondNearest([GOODCUTOFF]),STATE_IMMOBILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF]),100,RESISTMISSILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF]),1,SANCTUARY)
+  !Range(SecondNearest([GOODCUTOFF]),5)
+  See(SecondNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF],MAINHAND)
+  CheckStatGT([GOODCUTOFF],-5,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF],1,STONESKINS)
+  StateCheck([GOODCUTOFF],STATE_IMMOBILE)
+  CheckStatLT([GOODCUTOFF],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF],1,SANCTUARY)
+  !Range([GOODCUTOFF],5)
+  See([GOODCUTOFF])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(Player6,ENTROPY_SHIELD)
+  !CheckStatGT(Player6,0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",Player6)  // Reflection Shield +1
+  WeaponEffectiveVs(Player6,MAINHAND)
+  WeaponCanDamage(Player6,MAINHAND)
+  StateCheck(Player6,STATE_IMMOBILE)
+  CheckStatLT(Player6,100,RESISTMISSILE)
+  CheckStatLT(Player6,1,SANCTUARY)
+  !Range(Player6,5)
+  See(Player6)
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(Player5,ENTROPY_SHIELD)
+  !CheckStatGT(Player5,0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",Player5)  // Reflection Shield +1
+  WeaponEffectiveVs(Player5,MAINHAND)
+  WeaponCanDamage(Player5,MAINHAND)
+  StateCheck(Player5,STATE_IMMOBILE)
+  CheckStatLT(Player5,100,RESISTMISSILE)
+  CheckStatLT(Player5,1,SANCTUARY)
+  !Range(Player5,5)
+  See(Player5)
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(Player4,ENTROPY_SHIELD)
+  !CheckStatGT(Player4,0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",Player4)  // Reflection Shield +1
+  WeaponEffectiveVs(Player4,MAINHAND)
+  WeaponCanDamage(Player4,MAINHAND)
+  StateCheck(Player4,STATE_IMMOBILE)
+  CheckStatLT(Player4,100,RESISTMISSILE)
+  CheckStatLT(Player4,1,SANCTUARY)
+  !Range(Player4,5)
+  See(Player4)
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(Player3,ENTROPY_SHIELD)
+  !CheckStatGT(Player3,0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",Player3)  // Reflection Shield +1
+  WeaponEffectiveVs(Player3,MAINHAND)
+  WeaponCanDamage(Player3,MAINHAND)
+  StateCheck(Player3,STATE_IMMOBILE)
+  CheckStatLT(Player3,100,RESISTMISSILE)
+  CheckStatLT(Player3,1,SANCTUARY)
+  !Range(Player3,5)
+  See(Player3)
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(Player2,ENTROPY_SHIELD)
+  !CheckStatGT(Player2,0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",Player2)  // Reflection Shield +1
+  WeaponEffectiveVs(Player2,MAINHAND)
+  WeaponCanDamage(Player2,MAINHAND)
+  StateCheck(Player2,STATE_IMMOBILE)
+  CheckStatLT(Player2,100,RESISTMISSILE)
+  CheckStatLT(Player2,1,SANCTUARY)
+  !Range(Player2,5)
+  See(Player2)
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(Player1,ENTROPY_SHIELD)
+  !CheckStatGT(Player1,0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",Player1)  // Reflection Shield +1
+  WeaponEffectiveVs(Player1,MAINHAND)
+  WeaponCanDamage(Player1,MAINHAND)
+  StateCheck(Player1,STATE_IMMOBILE)
+  CheckStatLT(Player1,100,RESISTMISSILE)
+  CheckStatLT(Player1,1,SANCTUARY)
+  !Range(Player1,5)
+  See(Player1)
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),-5,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),1,STONESKINS)
+  StateCheck(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),STATE_IMMOBILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),100,RESISTMISSILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),1,SANCTUARY)
+  !Range(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]),5)
+  See(SecondNearest([GOODCUTOFF.0.0.DRUID_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.DRUID_ALL],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.DRUID_ALL],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.DRUID_ALL])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.DRUID_ALL],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.DRUID_ALL],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.DRUID_ALL],-5,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.DRUID_ALL],1,STONESKINS)
+  StateCheck([GOODCUTOFF.0.0.DRUID_ALL],STATE_IMMOBILE)
+  CheckStatLT([GOODCUTOFF.0.0.DRUID_ALL],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.DRUID_ALL],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.DRUID_ALL],5)
+  See([GOODCUTOFF.0.0.DRUID_ALL])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),-5,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),1,STONESKINS)
+  StateCheck(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),STATE_IMMOBILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),100,RESISTMISSILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),1,SANCTUARY)
+  !Range(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]),5)
+  See(SecondNearest([GOODCUTOFF.0.0.CLERIC_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.CLERIC_ALL],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.CLERIC_ALL],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.CLERIC_ALL])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.CLERIC_ALL],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.CLERIC_ALL],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.CLERIC_ALL],-5,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.CLERIC_ALL],1,STONESKINS)
+  StateCheck([GOODCUTOFF.0.0.CLERIC_ALL],STATE_IMMOBILE)
+  CheckStatLT([GOODCUTOFF.0.0.CLERIC_ALL],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.CLERIC_ALL],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.CLERIC_ALL],5)
+  See([GOODCUTOFF.0.0.CLERIC_ALL])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF.0.0.BARD_ALL]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),-5,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),1,STONESKINS)
+  StateCheck(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),STATE_IMMOBILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),100,RESISTMISSILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),1,SANCTUARY)
+  !Range(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]),5)
+  See(SecondNearest([GOODCUTOFF.0.0.BARD_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.BARD_ALL],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.BARD_ALL],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.BARD_ALL])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.BARD_ALL],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.BARD_ALL],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.BARD_ALL],-5,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.BARD_ALL],1,STONESKINS)
+  StateCheck([GOODCUTOFF.0.0.BARD_ALL],STATE_IMMOBILE)
+  CheckStatLT([GOODCUTOFF.0.0.BARD_ALL],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.BARD_ALL],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.BARD_ALL],5)
+  See([GOODCUTOFF.0.0.BARD_ALL])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),ENTROPY_SHIELD)
+  !CheckStatGT(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]))  // Reflection Shield +1
+  WeaponEffectiveVs(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),MAINHAND)
+  WeaponCanDamage(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),MAINHAND)
+  CheckStatGT(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),-5,ACMISSILEMOD)
+  CheckStatLT(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),1,STONESKINS)
+  StateCheck(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),STATE_IMMOBILE)
+  CheckStatLT(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),100,RESISTMISSILE)
+  CheckStatLT(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),1,SANCTUARY)
+  !Range(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]),5)
+  See(ThirdNearest([GOODCUTOFF.0.0.MAGE_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),ENTROPY_SHIELD)
+  !CheckStatGT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]))  // Reflection Shield +1
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),MAINHAND)
+  CheckStatGT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),-5,ACMISSILEMOD)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),1,STONESKINS)
+  StateCheck(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),STATE_IMMOBILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),100,RESISTMISSILE)
+  CheckStatLT(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),1,SANCTUARY)
+  !Range(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]),5)
+  See(SecondNearest([GOODCUTOFF.0.0.MAGE_ALL]))
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  DifficultyGT(EASY)
+  !CheckSpellState([GOODCUTOFF.0.0.MAGE_ALL],ENTROPY_SHIELD)
+  !CheckStatGT([GOODCUTOFF.0.0.MAGE_ALL],0,CLERIC_PHYSICAL_MIRROR)
+  !HasItemEquiped("SHLD24",[GOODCUTOFF.0.0.MAGE_ALL])  // Reflection Shield +1
+  WeaponEffectiveVs([GOODCUTOFF.0.0.MAGE_ALL],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF.0.0.MAGE_ALL],MAINHAND)
+  CheckStatGT([GOODCUTOFF.0.0.MAGE_ALL],-5,ACMISSILEMOD)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_ALL],1,STONESKINS)
+  StateCheck([GOODCUTOFF.0.0.MAGE_ALL],STATE_IMMOBILE)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_ALL],100,RESISTMISSILE)
+  CheckStatLT([GOODCUTOFF.0.0.MAGE_ALL],1,SANCTUARY)
+  !Range([GOODCUTOFF.0.0.MAGE_ALL],5)
+  See([GOODCUTOFF.0.0.MAGE_ALL])
+  False()
+THEN
+  RESPONSE #100
+    Continue()
+END
+
+IF
+  See(LastSeenBy(Myself))
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+  Allegiance(Myself,ENEMY)
+  !Range(LastSeenBy(Myself),5)
+  WeaponEffectiveVs(LastSeenBy(Myself),MAINHAND)
+  WeaponCanDamage(LastSeenBy(Myself),MAINHAND)
+  IsWeaponRanged(Myself)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  See(LastSeenBy(Myself))
+  Allegiance(LastSeenBy(Myself),ENEMY)
+  !Allegiance(Myself,ENEMY)
+  !Range(LastSeenBy(Myself),5)
+  WeaponEffectiveVs(LastSeenBy(Myself),MAINHAND)
+  WeaponCanDamage(LastSeenBy(Myself),MAINHAND)
+  IsWeaponRanged(Myself)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+/////////////////////////////////////////////////////////////////////
+// Unable to Attack w/ Ranged weapon, Switch to Melee
+/////////////////////////////////////////////////////////////////////
+IF
+  !GlobalTimerNotExpired("MO_AttackingTimer","LOCALS")
+  IsWeaponRanged(Myself)
+  !HasItem("melfmet",Myself)  // Melf's Minute Meteor
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    EquipMostDamagingMelee()
+    Continue()
+END
+
+IF
+  OR(6)
+    See(Player1)
+    See(Player2)
+    See(Player3)
+    See(Player4)
+    See(Player5)
+    See(Player6)
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  CheckStatLT(NearestEnemyOf(Myself),1,SANCTUARY)
+  See(NearestEnemyOf(Myself))
+  False()
+THEN
+  RESPONSE #100
+      NoAction()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  WeaponEffectiveVs(SixthNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(SixthNearest([GOODCUTOFF]),MAINHAND)
+  !StateCheck(SixthNearest([GOODCUTOFF]),STATE_PANIC)
+  CheckStatLT(SixthNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(SixthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  WeaponEffectiveVs(FifthNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(FifthNearest([GOODCUTOFF]),MAINHAND)
+  !StateCheck(FifthNearest([GOODCUTOFF]),STATE_PANIC)
+  CheckStatLT(FifthNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(FifthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  WeaponEffectiveVs(FourthNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(FourthNearest([GOODCUTOFF]),MAINHAND)
+  !StateCheck(FourthNearest([GOODCUTOFF]),STATE_PANIC)
+  CheckStatLT(FourthNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(FourthNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  WeaponEffectiveVs(ThirdNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(ThirdNearest([GOODCUTOFF]),MAINHAND)
+  !StateCheck(ThirdNearest([GOODCUTOFF]),STATE_PANIC)
+  CheckStatLT(ThirdNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(ThirdNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  WeaponEffectiveVs(SecondNearest([GOODCUTOFF]),MAINHAND)
+  WeaponCanDamage(SecondNearest([GOODCUTOFF]),MAINHAND)
+  !StateCheck(SecondNearest([GOODCUTOFF]),STATE_PANIC)
+  CheckStatLT(SecondNearest([GOODCUTOFF]),1,SANCTUARY)
+  See(SecondNearest([GOODCUTOFF]))
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  WeaponEffectiveVs([GOODCUTOFF],MAINHAND)
+  WeaponCanDamage([GOODCUTOFF],MAINHAND)
+  !StateCheck([GOODCUTOFF],STATE_PANIC)
+  CheckStatLT([GOODCUTOFF],1,SANCTUARY)
+  See([GOODCUTOFF])
+  False()
+THEN
+  RESPONSE #100
+    NoAction()
+END
+
+IF
+  See(LastSeenBy(Myself))
+  !Allegiance(LastSeenBy(Myself),ENEMY)
+  WeaponEffectiveVs(LastSeenBy(Myself),MAINHAND)
+  WeaponCanDamage(LastSeenBy(Myself),MAINHAND)
+  Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+IF
+  See(LastSeenBy(Myself))
+  Allegiance(LastSeenBy(Myself),ENEMY)
+  WeaponEffectiveVs(LastSeenBy(Myself),MAINHAND)
+  WeaponCanDamage(LastSeenBy(Myself),MAINHAND)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    AttackReevaluate(LastSeenBy(Myself),30)
+END
+
+/////////////////////////////////////////////////////////////////////
+// Find them! (Experimental)
+/////////////////////////////////////////////////////////////////////
+IF
+  ActionListEmpty()
+  See(Player1)
+  !See(Player2)
+  Allegiance(Myself,ENEMY)
+  !WeaponEffectiveVs(Player1,MAINHAND)
+  !WeaponCanDamage(Player1,MAINHAND)
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",6)
+    MoveToObject(Player2)
+END
+
+IF
+  ActionListEmpty()
+  See(Player2)
+  !See(Player3)
+  Allegiance(Myself,ENEMY)
+  !WeaponEffectiveVs(Player2,MAINHAND)
+  !WeaponCanDamage(Player2,MAINHAND)
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",6)
+    MoveToObject(Player3)
+END
+
+IF
+  ActionListEmpty()
+  See(Player3)
+  !See(Player4)
+  Allegiance(Myself,ENEMY)
+  !WeaponEffectiveVs(Player3,MAINHAND)
+  !WeaponCanDamage(Player3,MAINHAND)
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",6)
+    MoveToObject(Player4)
+END
+
+IF
+  ActionListEmpty()
+  See(Player4)
+  !See(Player5)
+  Allegiance(Myself,ENEMY)
+  !WeaponEffectiveVs(Player4,MAINHAND)
+  !WeaponCanDamage(Player4,MAINHAND)
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",6)
+    MoveToObject(Player5)
+END
+
+IF
+  ActionListEmpty()
+  See(Player5)
+  !See(Player6)
+  Allegiance(Myself,ENEMY)
+  !WeaponEffectiveVs(Player5,MAINHAND)
+  !WeaponCanDamage(Player5,MAINHAND)
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",6)
+    MoveToObject(Player6)
+END
+
+IF
+  ActionListEmpty()
+  See(Player6)
+  !See(Player1)
+  Allegiance(Myself,ENEMY)
+  !WeaponEffectiveVs(Player6,MAINHAND)
+  !WeaponCanDamage(Player6,MAINHAND)
+  !GlobalTimerNotExpired("MO_IsMovingTimer","LOCALS")
+THEN
+  RESPONSE #100
+    SetGlobalTimer("MO_IsMovingTimer","LOCALS",6)
+    MoveToObject(Player1)
+END
+
+IF
+  ActionListEmpty()
+  AttackedBy([ANYONE],DEFAULT)
+  InWeaponRange(LastSeenBy(Myself))
+THEN
+  RESPONSE #100
+    Attack(LastAttackerOf(Myself))
+END
+
+IF
+  ActionListEmpty()
+  See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    MoveToObject(LastSeenBy(Myself))
+END

@@ -1,0 +1,44 @@
+/*
+IF
+	OR(2)
+		!CombatCounter(0)
+		Global("MOBHA2_Enemy","GLOBAL",1)
+	Global("MO_LockDoors","MOBHA2",0)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_LockDoors","MOBHA2",1)
+		TriggerActivation("TrMOBHA3",FALSE)
+END
+
+IF
+	CombatCounter(0)
+	Global("MOBHA2_Enemy","GLOBAL",1)
+	Global("MO_DefeatInitial","MOBHA2",0)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_DefeatInitial","MOBHA2",1)
+		TriggerActivation("TrMOBHA3",TRUE)
+END
+*/
+
+/////////////////////////////////////////////////////////////////////
+// Block Exit
+/////////////////////////////////////////////////////////////////////
+IF
+    Global("Enteredmobha2","GLOBAL",0)
+THEN
+    RESPONSE #100
+        SetGlobal("Enteredmobha2","GLOBAL",1)
+        TriggerActivation("TrMOBHA3",FALSE)
+END
+
+IF
+  Dead("mobha37")
+  !ActuallyInCombat()
+  Global("DoorOpenmobha2","mobha2",0)
+THEN 
+    RESPONSE #100
+      TriggerActivation("TrMOBHA3",TRUE)
+      SetGlobal("DoorOpenmobha2","mobha2",1)
+      AddJournalEntry(@20017,INFO)
+END

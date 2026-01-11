@@ -1,0 +1,368 @@
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//            Gehenna (MOBHA1.ARE)
+/////////////////////////////////////////////////////////////////////
+//        Version 1
+// This is the first area the player encounters upon collapsing
+// their pocket plane. Upon entering, the player will encounter a 
+// group of Amelyssan's scouts who will conduct an initial fight with
+// the player. The player will progress through the area fighting
+// more Amelyssan scouts along with Planetars/Devas and Demons 
+// aligned with Amelyssan. The player will come across a bridge and
+// need to drop the respective keys to unlock the demon and planetar
+// towers. Once the towers are cleared and blood fills the respective
+// bloodbowls, the player will need to add their own blood to mix to
+// lower the gates. Once this occurs, Entropic Reapers will spawn
+// attacking the weakened player party.
+//
+/////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////
+// Spawn Enemies
+/////////////////////////////////////////////////////////////////////
+/*
+IF
+	Global("Spawn","MOBHA1",0)
+THEN
+	RESPONSE #100
+		SetGlobal("Spawn","MOBHA1",1)
+		CreateCreature("mobha05",[2520.1357],SW)  // Scout
+	    CreateCreature("mobha05",[2671.1425],SW)  // Scout
+	    //CreateCreature("mobha05",[2512.1534],SW)  // Scout
+	    CreateCreature("mobha05",[2767.273],SE)   // Scout
+	    CreateCreature("mobha05",[2912.242],SE)   // Scout
+	    CreateCreature("mobha06",[2833.507],SW)   // Skirmisher
+	    CreateCreature("mobha06",[2595.1488],SW)  // Skirmisher
+	    CreateCreature("mobha06",[2523.1460],SW)  // Skirmisher
+	    CreateCreature("mobha06",[2595.1488],SW)  // Skirmisher
+	    CreateCreature("mobha07",[2702.1714],NW)  // Shadowdancer
+	    CreateCreature("mobha08",[2297.1569],SE)  // Assassin
+	    CreateCreature("mobha07",[2829.826],SW)   // Shadowdancer
+	    CreateCreature("mobha07",[2721.1189],SW)  // Shadowdancer
+	    CreateCreature("mobha08",[2748.826],SW)   // Assassin
+	    CreateCreature("mobha08",[2647.1171],SW)  // Assassin
+	    Continue()
+END
+*/
+
+IF
+	Global("MO_AreaPrep","MOBHA1",0)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_AreaPrep","MOBHA1",1)
+		ActionOverride(Player1,RemoveSpell(ENTER_POCKET_PLANE))  // SPIN649.SPL (Pocket Plane)
+		Continue()
+END
+
+/*
+IF
+	Global("MO_AreaPrep","MOBHA1",0)
+	DifficultyGT(HARD)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_AreaPrep","MOBHA1",1)
+		ActionOverride(Player1,RemoveSpell(ENTER_POCKET_PLANE))  // SPIN649.SPL (Pocket Plane)
+		SetGlobalTimer("MO_Spawn","MOBHA1",60)
+		Continue()
+END
+
+IF
+	Global("MO_AreaPrep","MOBHA1",0)
+	Difficulty(HARD)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_AreaPrep","MOBHA1",1)
+		ActionOverride(Player1,RemoveSpell(ENTER_POCKET_PLANE))  // SPIN649.SPL (Pocket Plane)
+		SetGlobalTimer("MO_Spawn","MOBHA1",180)
+		Continue()
+END
+
+IF
+	Global("MO_AreaPrep","MOBHA1",0)
+	Difficulty(NORMAL)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_AreaPrep","MOBHA1",1)
+		ActionOverride(Player1,RemoveSpell(ENTER_POCKET_PLANE))  // SPIN649.SPL (Pocket Plane)
+		SetGlobalTimer("MO_Spawn","MOBHA1",300)
+		Continue()
+END
+
+IF
+	Global("MO_AreaPrep","MOBHA1",0)
+	Difficulty(EASY)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_AreaPrep","MOBHA1",1)
+		ActionOverride(Player1,RemoveSpell(ENTER_POCKET_PLANE))  // SPIN649.SPL (Pocket Plane)
+		SetGlobalTimer("MO_Spawn","MOBHA1",600)
+		Continue()
+END
+
+IF
+	Global("MO_AreaPrep","MOBHA1",0)
+	DifficultyLT(EASY)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_AreaPrep","MOBHA1",1)
+		ActionOverride(Player1,RemoveSpell(ENTER_POCKET_PLANE))  // SPIN649.SPL (Pocket Plane)
+		SetGlobalTimer("MO_Spawn","MOBHA1",6000)
+		Continue()
+END
+*/
+/*
+IF
+	!GlobalTimerNotExpired("MO_Spawn","MOBHA1")
+	DifficultyGT(HARD)
+	!Dead("mobha17")
+	!ActuallyInCombat()
+THEN
+	RESPONSE #100
+		SetGlobalTimer("MO_Spawn","MOBHA1",60)
+		CreateCreatureObject("mobha07",Player1,0,0,0)  // Shadowdancer
+		CreateCreatureObject("mobha08",Player1,0,0,0)  // Assassin
+END
+
+IF
+	!GlobalTimerNotExpired("MO_Spawn","MOBHA1")
+	Difficulty(HARD)
+	!Dead("mobha17")
+	!ActuallyInCombat()
+THEN
+	RESPONSE #100
+		SetGlobalTimer("MO_Spawn","MOBHA1",180)
+		CreateCreatureObject("mobha07",Player1,0,0,0)  // Shadowdancer
+		CreateCreatureObject("mobha08",Player1,0,0,0)  // Assassin
+END
+
+IF
+	!GlobalTimerNotExpired("MO_Spawn","MOBHA1")
+	Difficulty(NORMAL)
+	!Dead("mobha17")
+	!ActuallyInCombat()
+THEN
+	RESPONSE #100
+		SetGlobalTimer("MO_Spawn","MOBHA1",300)
+		CreateCreatureObject("mobha07",Player1,0,0,0)  // Shadowdancer
+		CreateCreatureObject("mobha08",Player1,0,0,0)  // Assassin
+END
+
+IF
+	!GlobalTimerNotExpired("MO_Spawn","MOBHA1")
+	Difficulty(EASY)
+	!Dead("mobha17")
+	!ActuallyInCombat()
+THEN
+	RESPONSE #100
+		SetGlobalTimer("MO_Spawn","MOBHA1",600)
+		CreateCreatureObject("mobha07",Player1,0,0,0)  // Shadowdancer
+		CreateCreatureObject("mobha08",Player1,0,0,0)  // Assassin
+END
+
+IF
+	!GlobalTimerNotExpired("MO_Spawn","MOBHA1")
+	DifficultyLT(EASY)
+	!Dead("mobha17")
+	!ActuallyInCombat()
+THEN
+	RESPONSE #100
+		SetGlobalTimer("MO_Spawn","MOBHA1",6000)
+		CreateCreatureObject("mobha07",Player1,0,0,0)  // Shadowdancer
+		CreateCreatureObject("mobha08",Player1,0,0,0)  // Assassin
+END
+*/
+/////////////////////////////////////////////////////////////////////
+// Set Rest Encounter Probability (tied to difficulty slider)
+/////////////////////////////////////////////////////////////////////
+IF
+	Dead("mobha17")
+	!Global("MO_RestEncounter","MOBHA1",5)
+	!ActuallyInCombat()
+THEN
+	RESPONSE #100
+		SetRestEncounterProbabilityDay(5) 
+		SetRestEncounterProbabilityNight(5)
+		DisplayStringHead(Player1,@5010)  // With Mayithra defeated, you feel like eyes are off you and the attacks upon you in Khalas will lessen.
+		AddJournalEntry(@20004,INFO)
+		SetGlobal("MO_RestEncounter","MOBHA1",5)
+END
+
+IF 
+	DifficultyGT(HARD)
+	!Dead("mobha17")
+	!Global("MO_RestEncounter","MOBHA1",1)
+THEN
+	RESPONSE #100
+		SetRestEncounterProbabilityDay(75) 
+		SetRestEncounterProbabilityNight(75)
+		SetGlobal("MO_RestEncounter","MOBHA1",1) 
+END
+
+IF 
+	Difficulty(HARD)
+	!Dead("mobha17")
+	!Global("MO_RestEncounter","MOBHA1",2)
+THEN
+	RESPONSE #100
+		SetRestEncounterProbabilityDay(50) 
+		SetRestEncounterProbabilityNight(50)
+		SetGlobal("MO_RestEncounter","MOBHA1",2) 
+END
+
+IF 
+	Difficulty(NORMAL)
+	!Dead("mobha17")
+	!Global("MO_RestEncounter","MOBHA1",3)
+THEN
+	RESPONSE #100
+		SetRestEncounterProbabilityDay(25) 
+		SetRestEncounterProbabilityNight(25)
+		SetGlobal("MO_RestEncounter","MOBHA1",3) 
+END
+
+IF 
+	DifficultyLT(NORMAL)
+	!Dead("mobha17")
+	!Global("MO_RestEncounter","MOBHA1",4)
+THEN
+	RESPONSE #100
+		SetRestEncounterProbabilityDay(10) 
+		SetRestEncounterProbabilityNight(10)
+		SetGlobal("MO_RestEncounter","MOBHA1",4) 
+END
+
+/////////////////////////////////////////////////////////////////////
+// Set Bloodbowls
+/////////////////////////////////////////////////////////////////////
+IF
+	Global("EnteredArea","MOBHA1",0)
+THEN
+	RESPONSE #100
+		SetGlobal("EnteredArea","MOBHA1",1)
+		AmbientActivate("Bloodbowl_left",FALSE)
+		AmbientActivate("Bloodbowl_right",FALSE)
+		AmbientActivate("Bloodtears_left",FALSE)
+		AmbientActivate("Bloodtears_right",FALSE)
+		AmbientActivate("Bloodskull_center",FALSE)
+END
+
+IF
+	Global("Bloodbowl_left","MOBHA1",1)
+THEN
+	RESPONSE #100
+		SetGlobal("Bloodbowl_left","MOBHA1",2)
+		PlaySound("AM0602D2")
+		AmbientActivate("Bloodbowl_left",TRUE)
+		AmbientActivate("Bloodtears_left",TRUE)
+END
+
+IF
+	Global("Bloodbowl_right","MOBHA1",1)
+THEN
+	RESPONSE #100
+		SetGlobal("Bloodbowl_right","MOBHA1",2)
+		PlaySound("AM0602D2")
+		AmbientActivate("Bloodbowl_right",TRUE)
+		AmbientActivate("Bloodtears_right",TRUE)
+END
+
+IF
+	GlobalGT("Bloodbowl_right","MOBHA1",0)
+	GlobalGT("Bloodbowl_left","MOBHA1",0)
+	Global("MO_BhaalSkullInitial","MOBHA1",0)
+THEN
+	RESPONSE #100
+		SetGlobal("MO_BhaalSkullInitial","MOBHA1",1)
+		//Wait(2)
+		ClearAllActions()
+		CreateCreature("mobha32",[798.1373],S)
+END
+
+IF
+	Global("Bloodskull_center","MOBHA1",1)
+	DifficultyGT(HARD)
+THEN
+	RESPONSE #100
+		SetGlobal("Bloodskull_center","MOBHA1",2)
+		SetGlobalTimer("MO_Bloodskull_centerTimer","MOBHA1",6)
+		PlaySound("AM0602D2")
+		AmbientActivate("Bloodskull_center",TRUE)
+		Wait(2)
+		CreateCreatureEffect("mobha03","SPSPEV",[743.1353],SE)  // Entropic Reaper
+		CreateCreatureEffect("mobha03","SPSPEV",[830.1329],SW)  // Entropic Reaper
+		CreateCreatureEffect("mobha03","SPSPEV",[892.1425],NW)  // Entropic Reaper
+		CreateCreatureEffect("mobha03","SPSPEV",[778.1458],NE)  // Entropic Reaper
+END
+
+IF
+	Global("Bloodskull_center","MOBHA1",1)
+	Difficulty(HARD)
+THEN
+	RESPONSE #100
+		SetGlobal("Bloodskull_center","MOBHA1",2)
+		SetGlobalTimer("MO_Bloodskull_centerTimer","MOBHA1",6)
+		PlaySound("AM0602D2")
+		AmbientActivate("Bloodskull_center",TRUE)
+		Wait(2)
+		CreateCreatureEffect("mobha03","SPSPEV",[784.1338],S)   // Entropic Reaper
+		CreateCreatureEffect("mobha03","SPSPEV",[892.1425],NW)  // Entropic Reaper
+		CreateCreatureEffect("mobha03","SPSPEV",[778.1458],NE)  // Entropic Reaper
+END
+
+IF
+	Global("Bloodskull_center","MOBHA1",1)
+	Difficulty(NORMAL)
+THEN
+	RESPONSE #100
+		SetGlobal("Bloodskull_center","MOBHA1",2)
+		SetGlobalTimer("MO_Bloodskull_centerTimer","MOBHA1",6)
+		PlaySound("AM0602D2")
+		AmbientActivate("Bloodskull_center",TRUE)
+		Wait(2)
+		CreateCreatureEffect("mobha03","SPSPEV",[743.1353],SE)  // Entropic Reaper
+		CreateCreatureEffect("mobha03","SPSPEV",[830.1329],SW)  // Entropic Reaper
+END
+
+IF
+	Global("Bloodskull_center","MOBHA1",1)
+	DifficultyLT(NORMAL)
+THEN
+	RESPONSE #100
+		SetGlobal("Bloodskull_center","MOBHA1",2)
+		SetGlobalTimer("MO_Bloodskull_centerTimer","MOBHA1",6)
+		PlaySound("AM0602D2")
+		AmbientActivate("Bloodskull_center",TRUE)
+		Wait(2)
+		CreateCreatureEffect("mobha03","SPSPEV",[784.1338],S)   // Entropic Reaper
+END
+
+IF
+	!GlobalTimerNotExpired("MO_Bloodskull_centerTimer","MOBHA1")
+	!ActuallyInCombat()
+	Global("Bloodskull_center","MOBHA1",2)
+THEN
+	RESPONSE #100
+		SetGlobal("Bloodskull_center","MOBHA1",3)
+		PlaySound("AM1300D")
+		OpenDoor("Door03")
+		ScreenShake([5.5],5)
+		AddJournalEntry(@20015,INFO)
+END
+
+IF
+	Global("Open_door_left","MOBHA1",1)
+THEN
+	RESPONSE #100
+		SetGlobal("Open_door_left","MOBHA1",2)
+		CreateVisualEffect("ICMAGICH",[314.1559])
+		OpenDoor("Door01")
+END
+
+IF
+	Global("Open_door_right","MOBHA1",1)
+THEN
+	RESPONSE #100
+		SetGlobal("Open_door_right","MOBHA1",2)
+		OpenDoor("Door02")
+END
+

@@ -1,0 +1,173 @@
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+//            Planetar Garrison - 2nd Floor (MOBHA0.ARE)
+/////////////////////////////////////////////////////////////////////
+//        Version 1
+// Lich will test multiple fights on the party and leave on good
+// terms.
+//
+// 
+/////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////
+// Lich Story
+/////////////////////////////////////////////////////////////////////
+IF
+  Global("MO_LichStory","MOBHA0",1)
+  Global("MO_LichJournal","MOBHA0",0)
+THEN
+  RESPONSE #100
+    SetGlobal("MO_LichJournal","MOBHA0",1)
+    AddJournalEntry(@20013,INFO)
+END
+
+/////////////////////////////////////////////////////////////////////
+// Spawn Bone Fiends
+/////////////////////////////////////////////////////////////////////
+IF 
+  Global("MO_OrogFight","MOBHA0",1)
+  !Dead("mobha50")  // Corrupted Orog Shaman
+  !GlobalTimerNotExpired("MO_SpellCastTimer","MOBHA0")
+  DifficultyGT(HARD)
+THEN 
+  RESPONSE #100
+    SetGlobalTimer("MO_SpellCastTimer","MOBHA0",18)
+    CreateCreatureEffect("mobha62","SPRAISED",[798.812],S)  // Bone Fiend
+    CreateCreatureEffect("mobha62","SPRAISED",[950.841],S)  // Bone Fiend
+    Continue()
+END
+
+IF 
+  Global("MO_OrogFight","MOBHA0",1)
+  !Dead("mobha50")  // Corrupted Orog Shaman
+  !GlobalTimerNotExpired("MO_SpellCastTimer","MOBHA0")
+  DifficultyLT(HARDEST)
+  RandomNum(2,1)
+THEN 
+  RESPONSE #100
+    SetGlobalTimer("MO_SpellCastTimer","MOBHA0",30)
+    CreateCreatureEffect("mobha62","SPRAISED",[798.812],S)  // Bone Fiend
+    Continue()
+END
+
+IF 
+  Global("MO_OrogFight","MOBHA0",1)
+  !Dead("mobha50")  // Corrupted Orog Shaman
+  !GlobalTimerNotExpired("MO_SpellCastTimer","MOBHA0")
+  DifficultyLT(HARDEST)
+  RandomNum(2,2)
+THEN 
+  RESPONSE #100
+    SetGlobalTimer("MO_SpellCastTimer","MOBHA0",30)
+    CreateCreatureEffect("mobha62","SPRAISED",[950.841],S)  // Bone Fiend
+    Continue()
+END
+
+/////////////////////////////////////////////////////////////////////
+// First Fight - Twisted Abyssal Hulks
+/////////////////////////////////////////////////////////////////////
+IF
+  Global("MO_FightPitProgression","MOBHA0",0)
+  !ActuallyInCombat()
+  DifficultyGT(HARD)
+  NumDead("MOBHA49",3)  // Twisted Abyssal Hulks
+THEN
+  RESPONSE #100
+    SetGlobal("MO_FightPitProgression","MOBHA0",1)
+    StartCutSceneMode()
+    StartCutScene("mocut10")
+END
+
+IF
+  Global("MO_FightPitProgression","MOBHA0",0)
+  !ActuallyInCombat()
+  DifficultyLT(HARDEST)
+  NumDead("MOBHA49",1)  // Twisted Abyssal Hulks
+THEN
+  RESPONSE #100
+    SetGlobal("MO_FightPitProgression","MOBHA0",1)
+    StartCutSceneMode()
+    StartCutScene("mocut10")
+END
+
+/////////////////////////////////////////////////////////////////////
+// Second Fight - Mutant Fomorian Giant
+/////////////////////////////////////////////////////////////////////
+IF
+  Global("MO_FightPitProgression","MOBHA0",1)
+  !ActuallyInCombat()
+  DifficultyGT(HARD)
+  NumDead("MOBHA47",2)  // Mutant Fomorian Giant
+THEN
+  RESPONSE #100
+    SetGlobal("MO_FightPitProgression","MOBHA0",2)
+    StartCutSceneMode()
+    StartCutScene("mocut12")
+END
+
+IF
+  Global("MO_FightPitProgression","MOBHA0",1)
+  !ActuallyInCombat()
+  DifficultyLT(HARDEST)
+  NumDead("MOBHA47",1)  // Mutant Fomorian Giant
+THEN
+  RESPONSE #100
+    SetGlobal("MO_FightPitProgression","MOBHA0",2)
+    StartCutSceneMode()
+    StartCutScene("mocut12")
+END
+
+/////////////////////////////////////////////////////////////////////
+// Third Fight - Hellfire Werewolves
+/////////////////////////////////////////////////////////////////////
+IF
+  Global("MO_FightPitProgression","MOBHA0",2)
+  !ActuallyInCombat()
+  DifficultyGT(HARD)
+  NumDead("MOBHA48",5)  // Hellfire Werewolf
+THEN
+  RESPONSE #100
+    SetGlobal("MO_FightPitProgression","MOBHA0",3)
+    StartCutSceneMode()
+    StartCutScene("mocut14")
+END
+
+IF
+  Global("MO_FightPitProgression","MOBHA0",2)
+  !ActuallyInCombat()
+  DifficultyLT(HARDEST)
+  NumDead("MOBHA48",2)  // Hellfire Werewolf
+THEN
+  RESPONSE #100
+    SetGlobal("MO_FightPitProgression","MOBHA0",3)
+    StartCutSceneMode()
+    StartCutScene("mocut14")
+END
+
+/////////////////////////////////////////////////////////////////////
+// Fourth Fight - Corrupted Orog Shaman
+/////////////////////////////////////////////////////////////////////
+IF
+  Global("MO_FightPitProgression","MOBHA0",3)
+  !ActuallyInCombat()
+  NumDead("MOBHA50",1)  // Corrupted Orog Shaman
+THEN
+  RESPONSE #100
+    SetGlobal("MO_FightPitProgression","MOBHA0",4)
+    StartCutSceneMode()
+    StartCutScene("mocut14")
+END
+
+/////////////////////////////////////////////////////////////////////
+// Lava - Hephernaan Check
+/////////////////////////////////////////////////////////////////////
+IF
+  InParty("L#HPH")
+  !Dead("L#HPH")
+  PartyHasItem("MOBHA46A")
+  Global("MO_HephCheck","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("MO_HephCheck","GLOBAL",1)
+    DisplayStringHead("L#HPH",@5012)
+END 

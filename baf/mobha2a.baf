@@ -1,0 +1,26 @@
+IF
+	Clicked([ANYONE])
+	!ActuallyInCombat()
+	Range(LastTrigger,9)
+THEN
+	RESPONSE #100
+		ClearAllActions()
+		CreateCreature("mobha33",[645.357],S)
+END
+
+IF
+	Clicked([ANYONE])
+	ActuallyInCombat()
+	Range(LastTrigger,9)
+THEN
+	RESPONSE #100
+		DisplayString(Myself,@5011)  // You cannot use this while in combat.
+END
+
+IF
+	Clicked([ANYONE])
+	!Range(LastTrigger,9)
+THEN
+	RESPONSE #100
+		DisplayString(Myself,23565)  // You are too far away to operate that device.
+END
