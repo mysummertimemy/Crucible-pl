@@ -1,0 +1,136 @@
+// Crucible, American English
+
+@10000 = ~Blood of Belchaad the Juggernaut~
+@10001 = ~This is a flask of blood taken from Belchaad the Juggernaut. The blood is unusually heavy and emanates evil.
+
+STATISTICS:
+
+Weight: 25~
+
+@10002 = ~Blood of Malchediel~
+@10003 = ~This is a flask of blood taken from Malchediel. The blood is unusually heavy and shimmers with an almost gold like appearance.
+
+STATISTICS:
+
+Weight: 25~
+
+@10004 = ~Quiver of Plenty +3~
+@10005 = ~This Quiver of Plenty provides the user with an unlimited supply of +3 arrows.
+
+STATISTICS:
+
+Equipped abilities:
+– Unlimited +3 arrows
+
+Weight: 0~
+
+@10006 = ~Flail of Suffering~
+@10007 = ~Seething rage and malice emanates from this flail, and you can faintly hear the sounds of wailing and screams as it is swung through the air. Only the foulest sort of individual would dare hold such a vile and evil weapon.
+
+STATISTICS:
+
+Combat abilities:
+– Hit target suffers 2 points of additional bleeding damage per second for 15 seconds.
+– Any death caused by this weapon drains the soul of the victim and heals the wielder 20 hit points. This will not heal beyond the wielder's maximum.
+
+THAC0: +5
+Damage: 1d6+6
+Damage type: Crushing
+Speed Factor: 2
+Proficiency Type: Flail/Morning Star
+Type: One-handed
+Requires:
+ 13 Strength
+
+Weight: 8~
+
+@10008 = ~Spiraling Murder~
+@10009 = ~While it may be difficult to say if the blade was named after a group of ravens or the domain of Bhaal, the Spiraling Murder is a truly powerful dagger aimed at swiftly killing those of faith. Considering the blade's power, it doesn't surprise where the blade has been found. 
+
+It may be the right weapon to use against all clerics, paladins, and blackguards. 
+
+STATISTICS:
+
+Charge abilities: 
+– Invisibility twice per day
+  Duration: 12 hours
+  Area of Effect: The wearer
+
+Equipped abilities:
+– Save vs. Death: +2
+
+Combat abilities:
+– When a target is killed with this blade, the wielder heals 10 Hit Points
+– If a Cleric or Paladin is hit with this weapon, they suffer -1 penalty to Wisdom for 3 rounds
+
+THAC0: +5
+Damage: 1d4+5, +5 extra vs. clerics and paladins
+Damage type: Piercing
+Speed Factor: 0
+Proficiency Type: Dagger
+Type: One-handed
+Requires:
+ 3 Strength
+
+Weight: 0~
+
+@10010 = ~Blood Mage's Last Regret~
+@10011 = ~This amulet was invented by a mage that used blood rituals in order to win his battle with Belhifet. It is said, that his amulet, The Last Regret, helped him to truly hurt the devil; however, the mage's enemy was way more powerful than the caster could have ever anticipated. He failed and died that day. The amulet got lost the very same moment, most likely taken by one of the lesser diabolical creatures after the battle. 
+
+STATISTICS:
+
+Equipped abilities:
+– Constitution: -1
+– Caster Level: +3
+– Armor Class: +2 vs. demons and devils
+– Saving Throws: +2 vs. demons and devils
+– May only be removed with a Remove Curse spell
+
+Charge abilities:
+– Permamently sacrifice 20% of the user's maximum Hit Points and regain all lost spells
+  Area of Effect: The wearer
+
+Weight: 0~
+
+@10012 = ~Bhaal's Medallion~
+@10013 = ~This medallion, worn by followers of Bhaal, allows one to enter into his Realm.
+
+STATISTICS:
+
+Weight: 1~
+
+@10014 = ~Pyroclastic Dragon Scale~
+@10015 = ~A number of scales were salvaged from the pyroclastic dragon. Legend has it they can be magically forged into powerful armor.
+
+STATISTICS:
+
+Weight: 15~
+
+@10016 = ~Pyroclastic Dragon Plate~
+@10017 = ~The durable scales of the pyroclastic dragon provide excellent protection against weapons and fire.
+
+STATISTICS:
+
+Equipped abilities:
+– Fire Resistance: +40%
+– 2 points of fire damage to any who damage the wielder
+
+Armor Class: -2 (-5 vs. slashing, -3 vs. piercing and missile)
+Requires:
+ 15 Strength
+
+Weight: 40~
+
+@10018 = ~Demon Heart~
+@10019 = ~No one said that demon hearts were supposed to be pretty, but you certainly weren't expecting this mushy, fleshy bag of vileness. Heavy and wet, the organ still beats, and even though it is stuffed away with your belongings, you hear the dreadful thub-dub. Every now and then you must check to make sure it has not bounced free of your pack.
+
+STATISTICS:
+
+Weight: 25~
+
+@10020 = ~Feather from a Planetar's Wing~
+@10021 = ~Found in the quarters of the Winged, this appears to be a normal feather until one looks closely at it. Only then does the shimmering, unearthly light within it become apparent. Those who deal in unusual artifacts would surely pay a substantial sum to possess such an item. Alternatively, a skilled magician might be able to use the feather as a spell component.
+
+STATISTICS:
+
+Weight: 0~
